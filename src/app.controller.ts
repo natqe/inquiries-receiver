@@ -7,26 +7,13 @@ import { GMAIL_USER, GMAIL_PASS } from './main.constants'
 export class AppController {
   @Post()
   async sendMail(@Body() { subject, text, to }: SendMailDto) {
-    Logger.log({
-      service: 'gmail',
-      secure: false,
-      auth: {
-        user: GMAIL_USER,
-        pass: GMAIL_PASS
-      }
-    })
-    Logger.log({
-      to, subject, text,
-      from: GMAIL_USER
-    })
     try {
       await createTransport({
         service: 'gmail',
-        secure: false,
         auth: {
           user: GMAIL_USER,
           pass: GMAIL_PASS
-        }
+        },
       }).sendMail({
         to, subject, text,
         from: GMAIL_USER
